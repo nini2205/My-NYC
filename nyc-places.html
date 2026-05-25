@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NYC Places</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.4.0/dist/tabler-icons.min.css" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #ffffff;
+    --bg-secondary: #f5f4f0;
+    --bg-tertiary: #eeecea;
+    --text: #1a1a1a;
+    --text-secondary: #6b6b67;
+    --border: rgba(0,0,0,0.12);
+    --border-hover: rgba(0,0,0,0.25);
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1c1a;
+      --bg-secondary: #252522;
+      --bg-tertiary: #2e2e2b;
+      --text: #f0ede8;
+      --text-secondary: #a09e98;
+      --border: rgba(255,255,255,0.1);
+      --border-hover: rgba(255,255,255,0.22);
+      --shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg-tertiary);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .app {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+  }
+
+  .header h1 {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .header-sub {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+  }
+
+  .count-badge {
+    font-size: 12px;
+    font-weight: 500;
+    background: var(--bg-secondary);
+    border: 0.5px solid var(--border);
+    border-radius: 999px;
+    padding: 2px 9px;
+    color: var(--text-secondary);
+  }
+
+  .add-btn {
+    background: var(--text);
+    color: var(--bg);
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 9px 18px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: opacity 0.15s;
+  }
+  .add-btn:hover { opacity: 0.8; }
+
+  /* API key banner */
+  .api-banner {
+    background: var(--bg-secondary);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 12px 16px;
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .api-banner label { font-size: 13px; color: var(--text-secondary); white-space: nowrap; }
+  .api-banner input {
+    flex: 1;
+    min-width: 180px;
+    font-family: monospace;
+    font-size: 13px;
+  }
+  .api-save-btn {
+    background: none;
+    border: 0.5px solid var(--border-hover);
+    border-radius: var(--radius-md);
+    padding: 6px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .api-save-btn:hover { background: var(--bg-tertiary); }
+  .api-status { font-size: 12px; color: #1D9E75; }
+
+  /* AI bar */
+  .ai-bar {
+    background: var(--bg-secondary);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 12px 16px;
+    margin-bottom: 1rem;
+  }
+  .ai-bar-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .ai-bar input {
+    flex: 1;
+  }
+  .ai-btn {
+    background: none;
+    border: 0.5px solid var(--border-hover);
+    border-radius: var(--radius-md);
+    padding: 7px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .ai-btn:hover { background: var(--bg); }
+  .ai-result {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 0.5px solid var(--border);
+    display: none;
+  }
+
+  /* Tabs */
+  .filter-tabs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .tab {
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    cursor: pointer;
+    border: 0.5px solid var(--border);
+    color: var(--text-secondary);
+    background: transparent;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .tab.active {
+    color: var(--text);
+    border-color: var(--border-hover);
+    background: var(--bg-secondary);
+    font-weight: 500;
+  }
+  .tab:hover:not(.active) { background: var(--bg-secondary); }
+  .cat-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  /* Cards grid */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 12px;
+  }
+
+  .card {
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    position: relative;
+  }
+  .card:hover {
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow);
+  }
+  .card.highlight {
+    border-color: #1D9E75 !important;
+    box-shadow: 0 0 0 2px rgba(29,158,117,0.15);
+  }
+
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .card-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.3;
+  }
+  .card-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+  .card-cat {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 999px;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+  }
+  .card-actions {
+    display: flex;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .card:hover .card-actions { opacity: 1; }
+  .icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-size: 15px;
+    padding: 3px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    line-height: 1;
+    transition: color 0.1s, background 0.1s;
+  }
+  .icon-btn:hover { color: var(--text); background: var(--bg-secondary); }
+  .icon-btn.del:hover { color: #E24B4A; background: #FAECE7; }
+
+  .card-meta {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .card-notes {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .card-price {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+  .card-link {
+    font-size: 13px;
+    color: #185FA5;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+  .card-link:hover { text-decoration: underline; }
+
+  .empty {
+    text-align: center;
+    padding: 4rem 1rem;
+    color: var(--text-secondary);
+    font-size: 14px;
+    grid-column: 1 / -1;
+  }
+  .empty i { font-size: 36px; display: block; margin-bottom: 12px; opacity: 0.4; }
+
+  /* Modal */
+  .modal-bg {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 60px 1rem 2rem;
+    z-index: 100;
+    overflow-y: auto;
+  }
+  .modal {
+    background: var(--bg);
+    border-radius: var(--radius-lg);
+    border: 0.5px solid var(--border);
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 480px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  }
+  .modal h2 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    color: var(--text);
+  }
+  .field { margin-bottom: 14px; }
+  .field label {
+    display: block;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+    font-weight: 500;
+  }
+  .field input, .field select, .field textarea {
+    width: 100%;
+    background: var(--bg);
+    color: var(--text);
+    border: 0.5px solid var(--border-hover);
+    border-radius: var(--radius-md);
+    padding: 8px 12px;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    border-color: #1D9E75;
+    box-shadow: 0 0 0 3px rgba(29,158,117,0.12);
+  }
+  .field textarea { height: 80px; resize: vertical; }
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 1.5rem;
+  }
+  .cancel-btn {
+    background: none;
+    border: 0.5px solid var(--border-hover);
+    border-radius: var(--radius-md);
+    padding: 8px 16px;
+    cursor: pointer;
+    color: var(--text);
+    font-size: 14px;
+    font-family: inherit;
+  }
+  .cancel-btn:hover { background: var(--bg-secondary); }
+
+  .ai-loading {
+    display: inline-block;
+    width: 13px; height: 13px;
+    border: 2px solid var(--border);
+    border-top-color: var(--text-secondary);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    vertical-align: middle;
+    margin-right: 5px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  @media (max-width: 600px) {
+    .app { padding: 1.25rem 1rem; }
+    .cards { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="header">
+    <div>
+      <h1>
+        <i class="ti ti-building-skyscraper" aria-hidden="true"></i>
+        NYC Places
+        <span class="count-badge" id="total-count">0</span>
+      </h1>
+      <div class="header-sub">Your personal NYC wishlist</div>
+    </div>
+    <button class="add-btn" onclick="openAdd()">
+      <i class="ti ti-plus" aria-hidden="true"></i> Add place
+    </button>
+  </div>
+
+  <div class="api-banner" id="api-banner">
+    <i class="ti ti-key" aria-hidden="true" style="font-size:16px;color:var(--text-secondary);flex-shrink:0"></i>
+    <label for="api-key-input">Anthropic API key for AI search:</label>
+    <input type="password" id="api-key-input" placeholder="sk-ant-…" />
+    <button class="api-save-btn" onclick="saveApiKey()">Save</button>
+    <span class="api-status" id="api-status" style="display:none"><i class="ti ti-circle-check" aria-hidden="true"></i> Saved</span>
+  </div>
+
+  <div class="ai-bar">
+    <div class="ai-bar-row">
+      <i class="ti ti-sparkles" aria-hidden="true" style="font-size:18px;color:var(--text-secondary);flex-shrink:0"></i>
+      <input type="text" id="ai-input" placeholder="I want cozy ramen tonight…" onkeydown="if(event.key==='Enter')aiSearch()" />
+      <button class="ai-btn" onclick="aiSearch()">Search ↗</button>
+    </div>
+    <div class="ai-result" id="ai-result"></div>
+  </div>
+
+  <div class="filter-tabs" id="tabs"></div>
+
+  <div class="cards" id="cards-grid"></div>
+
+</div>
+
+<div id="modal-container"></div>
+
+<script>
+const CATS = {
+  Places:      { color: '#5DCAA5', bg: '#E1F5EE', text: '#085041' },
+  Stores:      { color: '#7F77DD', bg: '#EEEDFE', text: '#26215C' },
+  Restaurants: { color: '#D85A30', bg: '#FAECE7', text: '#4A1B0C' },
+  Drinks:      { color: '#D4537E', bg: '#FBEAF0', text: '#4B1528' }
+};
+const ALL_CATS = ['All', ...Object.keys(CATS)];
+
+let places = [];
+let filter = 'All';
+let aiHighlighted = null;
+let editId = null;
+
+function loadPlaces() {
+  try { places = JSON.parse(localStorage.getItem('nyc_places') || '[]'); } catch(e) { places = []; }
+  render();
+}
+
+function savePlaces() {
+  localStorage.setItem('nyc_places', JSON.stringify(places));
+}
+
+function saveApiKey() {
+  const key = document.getElementById('api-key-input').value.trim();
+  if (!key) return;
+  localStorage.setItem('nyc_api_key', key);
+  document.getElementById('api-key-input').value = '';
+  document.getElementById('api-status').style.display = 'inline';
+  setTimeout(() => document.getElementById('api-status').style.display = 'none', 2000);
+}
+
+function getApiKey() {
+  return localStorage.getItem('nyc_api_key') || '';
+}
+
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function render() {
+  renderTabs();
+  renderCards();
+  document.getElementById('total-count').textContent = places.length;
+}
+
+function renderTabs() {
+  const el = document.getElementById('tabs');
+  el.innerHTML = ALL_CATS.map(c => {
+    const dot = c !== 'All' ? `<span class="cat-dot" style="background:${CATS[c].color}"></span>` : '';
+    const cnt = c === 'All' ? places.length : places.filter(p => p.category === c).length;
+    return `<button class="tab ${filter===c?'active':''}" onclick="setFilter('${c}')">${dot}${c} <span style="opacity:0.5">${cnt}</span></button>`;
+  }).join('');
+}
+
+function renderCards() {
+  const grid = document.getElementById('cards-grid');
+  const shown = filter === 'All' ? [...places] : places.filter(p => p.category === filter);
+  if (!shown.length) {
+    grid.innerHTML = `<div class="empty"><i class="ti ti-map-pin-off" aria-hidden="true"></i>No places yet${filter!=='All'?' in '+filter:''}.<br>Hit "Add place" to get started.</div>`;
+    return;
+  }
+  grid.innerHTML = shown.map(p => {
+    const cat = CATS[p.category] || CATS.Places;
+    const hl = aiHighlighted && aiHighlighted.includes(p.id) ? 'highlight' : '';
+    const link = p.website ? `<a class="card-link" href="${esc(p.website)}" target="_blank" rel="noopener"><i class="ti ti-external-link" aria-hidden="true" style="font-size:13px"></i> Link</a>` : '';
+    return `<div class="card ${hl}" id="card-${p.id}">
+      <div class="card-top">
+        <div class="card-name">${esc(p.name)}</div>
+        <div class="card-right">
+          <span class="card-cat" style="background:${cat.bg};color:${cat.text}">${p.category}</span>
+          <div class="card-actions">
+            <button class="icon-btn" onclick="openEdit('${p.id}')" title="Edit" aria-label="Edit"><i class="ti ti-edit" aria-hidden="true"></i></button>
+            <button class="icon-btn del" onclick="deletePlace('${p.id}')" title="Delete" aria-label="Delete"><i class="ti ti-trash" aria-hidden="true"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true" style="font-size:13px"></i>${esc(p.neighborhood||'—')}</div>
+      ${p.notes ? `<div class="card-notes">${esc(p.notes)}</div>` : ''}
+      <div class="card-footer">
+        <div class="card-price">${esc(p.price||'')}</div>
+        ${link}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function setFilter(c) {
+  filter = c;
+  aiHighlighted = null;
+  document.getElementById('ai-result').style.display = 'none';
+  render();
+}
+
+function deletePlace(id) {
+  if (!confirm('Remove this place?')) return;
+  places = places.filter(p => p.id !== id);
+  savePlaces(); render();
+}
+
+function openAdd() { editId = null; showModal(); }
+function openEdit(id) { editId = id; showModal(places.find(p => p.id === id)); }
+
+function showModal(data) {
+  const isEdit = !!data;
+  document.getElementById('modal-container').innerHTML = `
+    <div class="modal-bg" onclick="if(event.target===this)closeModal()">
+      <div class="modal" role="dialog" aria-modal="true" aria-label="${isEdit?'Edit place':'Add a place'}">
+        <h2>${isEdit ? 'Edit place' : 'Add a place'}</h2>
+        <div class="field"><label for="f-name">Name</label><input id="f-name" value="${esc(data?.name||'')}" placeholder="Raku, The Strand…" /></div>
+        <div class="field"><label for="f-cat">Category</label><select id="f-cat">${Object.keys(CATS).map(c=>`<option value="${c}"${data?.category===c?' selected':''}>${c}</option>`).join('')}</select></div>
+        <div class="field"><label for="f-nbhd">Neighborhood</label><input id="f-nbhd" value="${esc(data?.neighborhood||'')}" placeholder="East Village, Williamsburg…" /></div>
+        <div class="field"><label for="f-notes">Notes</label><textarea id="f-notes" placeholder="Cuisine, vibe, must-try dish…">${esc(data?.notes||'')}</textarea></div>
+        <div class="field"><label for="f-web">Website or Instagram</label><input id="f-web" value="${esc(data?.website||'')}" placeholder="https://…" /></div>
+        <div class="field"><label for="f-price">Price range</label><select id="f-price">${['','$','$$','$$$','$$$$'].map(p=>`<option value="${p}"${data?.price===p?' selected':''}>${p||'—'}</option>`).join('')}</select></div>
+        <div class="modal-actions">
+          <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+          <button class="add-btn" onclick="saveModal()">${isEdit ? 'Save changes' : 'Add place'}</button>
+        </div>
+      </div>
+    </div>`;
+  setTimeout(() => document.getElementById('f-name')?.focus(), 50);
+}
+
+function closeModal() { document.getElementById('modal-container').innerHTML = ''; }
+
+function saveModal() {
+  const name = document.getElementById('f-name').value.trim();
+  if (!name) { alert('Name is required.'); return; }
+  const obj = {
+    id: editId || uid(),
+    name,
+    category: document.getElementById('f-cat').value,
+    neighborhood: document.getElementById('f-nbhd').value.trim(),
+    notes: document.getElementById('f-notes').value.trim(),
+    website: document.getElementById('f-web').value.trim(),
+    price: document.getElementById('f-price').value
+  };
+  if (editId) { places = places.map(p => p.id === editId ? obj : p); }
+  else { places.push(obj); }
+  savePlaces(); closeModal(); render();
+}
+
+async function aiSearch() {
+  const q = document.getElementById('ai-input').value.trim();
+  if (!q) return;
+  const key = getApiKey();
+  if (!key) { showAiResult('Enter your Anthropic API key above to use AI search.'); return; }
+  if (!places.length) { showAiResult('Add some places first, then search!'); return; }
+  showAiResult('<span class="ai-loading"></span> Thinking…');
+  const listStr = places.map(p => `[${p.id}] ${p.name} | ${p.category} | ${p.neighborhood||''} | ${p.notes||''} | ${p.price||''}`).join('\n');
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': key,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 400,
+        messages: [{
+          role: 'user',
+          content: `You are a helpful NYC concierge. Here is the user's saved places list:\n${listStr}\n\nUser query: "${q}"\n\nReturn a JSON object only, no markdown, no extra text:\n{"ids": ["id1","id2"], "message": "Brief friendly recommendation sentence"}\n\nMatch ids of places that fit the query. If none fit, return empty ids array and explain in message.`
+        }]
+      })
+    });
+    const data = await res.json();
+    if (data.error) { showAiResult('API error: ' + (data.error.message||'unknown')); return; }
+    const txt = data.content?.find(b => b.type==='text')?.text || '{}';
+    let parsed;
+    try { parsed = JSON.parse(txt.replace(/```json|```/g,'').trim()); } catch(e) { parsed = {ids:[],message:'Could not parse results.'}; }
+    aiHighlighted = parsed.ids || [];
+    filter = 'All';
+    showAiResult(`✦ ${parsed.message||'Here are your matches.'}${aiHighlighted.length?' Highlighted below.':''}`);
+    render();
+    if (aiHighlighted.length) {
+      const first = document.getElementById('card-' + aiHighlighted[0]);
+      if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  } catch(e) {
+    showAiResult('Search failed. Check your API key and connection.');
+  }
+}
+
+function showAiResult(html) {
+  const el = document.getElementById('ai-result');
+  el.innerHTML = html;
+  el.style.display = 'block';
+}
+
+loadPlaces();
+</script>
+</body>
+</html>
