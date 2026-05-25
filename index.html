@@ -352,7 +352,7 @@ function renderCards() {
   let shown = filter === 'All' ? [...places] : places.filter(p => p.category === filter);
   if (q) {
     shown = shown.filter(p =>
-      [p.name, p.neighborhood, p.notes, p.category].some(f => (f||'').toLowerCase().includes(q))
+      [p.name, p.neighborhood, p.address, p.notes, p.category].some(f => (f||'').toLowerCase().includes(q))
     );
   }
   if (!shown.length) {
@@ -374,6 +374,7 @@ function renderCards() {
         </div>
       </div>
       <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true" style="font-size:13px"></i>${esc(p.neighborhood||'—')}</div>
+      ${p.address ? `<div class="card-meta" style="margin-top:-2px"><i class="ti ti-route" aria-hidden="true" style="font-size:13px"></i><a class="card-link" style="font-size:13px" href="https://maps.google.com/?q=${encodeURIComponent(p.address)}" target="_blank" rel="noopener">${esc(p.address)}</a></div>` : ''}
       ${p.notes ? `<div class="card-notes">${esc(p.notes)}</div>` : ''}
       <div class="card-footer">
         <div class="card-price">${esc(p.price||'')}</div>
@@ -403,6 +404,7 @@ function showModal(data) {
         <div class="field"><label for="f-name">Name</label><input id="f-name" value="${esc(data?.name||'')}" placeholder="Raku, The Strand…" /></div>
         <div class="field"><label for="f-cat">Category</label><select id="f-cat">${Object.keys(CATS).map(c=>`<option value="${c}"${data?.category===c?' selected':''}>${c}</option>`).join('')}</select></div>
         <div class="field"><label for="f-nbhd">Neighborhood</label><input id="f-nbhd" value="${esc(data?.neighborhood||'')}" placeholder="East Village, Williamsburg…" /></div>
+        <div class="field"><label for="f-addr">Address</label><input id="f-addr" value="${esc(data?.address||'')}" placeholder="123 Mott St, New York, NY 10013" /></div>
         <div class="field"><label for="f-notes">Notes</label><textarea id="f-notes" placeholder="Cuisine, vibe, must-try dish…">${esc(data?.notes||'')}</textarea></div>
         <div class="field"><label for="f-web">Website or Instagram</label><input id="f-web" value="${esc(data?.website||'')}" placeholder="https://…" /></div>
         <div class="field"><label for="f-price">Price range</label><select id="f-price">${['','$','$$','$$$','$$$$'].map(p=>`<option value="${p}"${data?.price===p?' selected':''}>${p||'—'}</option>`).join('')}</select></div>
@@ -425,6 +427,7 @@ function saveModal() {
     name,
     category: document.getElementById('f-cat').value,
     neighborhood: document.getElementById('f-nbhd').value.trim(),
+    address: document.getElementById('f-addr').value.trim(),
     notes: document.getElementById('f-notes').value.trim(),
     website: document.getElementById('f-web').value.trim(),
     price: document.getElementById('f-price').value
