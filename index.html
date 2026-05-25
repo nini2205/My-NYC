@@ -495,13 +495,13 @@ body {
 
 <script>
 const CATS = {
-  Restaurants: { color: '#C4622D', bg: '#F4C4A0', text: '#7A3418' },
-  Drinks:      { color: '#9B5EA2', bg: '#E8C4E0', text: '#6A2868' },
-  Stores:      { color: '#2D7A9B', bg: '#B8D4F0', text: '#1A4878' },
-  Places:      { color: '#2D7A5A', bg: '#B8DDB8', text: '#2A5C2A' },
+  Eat:     { color: '#C4622D', bg: '#F4C4A0', text: '#7A3418' },
+  Drink:   { color: '#9B5EA2', bg: '#E8C4E0', text: '#6A2868' },
+  Shop:    { color: '#2D7A9B', bg: '#B8D4F0', text: '#1A4878' },
+  Explore: { color: '#2D7A5A', bg: '#B8DDB8', text: '#2A5C2A' },
 };
 const ALL_CATS = ['All', ...Object.keys(CATS)];
-const CAT_EMOJI = { Restaurants: '🍜', Drinks: '🍹', Stores: '🛍️', Places: '📍' };
+const CAT_EMOJI = { Eat: '🍜', Drink: '🍹', Shop: '🛍️', Explore: '📍' };
 
 let places = [];
 let filter = 'All';
@@ -550,7 +550,7 @@ function renderCards() {
   }
 
   grid.innerHTML = shown.map(p => {
-    const cat = CATS[p.category] || CATS.Places;
+    const cat = CATS[p.category] || CATS.Explore;
     const mapsUrl = p.address ? `https://maps.google.com/?q=${encodeURIComponent(p.address+' New York')}` : null;
     const emoji = CAT_EMOJI[p.category] || '📍';
     const hasFooter = p.price || p.website;
