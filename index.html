@@ -18,10 +18,10 @@
   --ink2: #6B5E48;
   --ink3: #A8967C;
   --squiggle: #2C2416;
-  --c1: #F4C4A0; /* peach */
-  --c2: #B8DDB8; /* sage */
-  --c3: #B8D4F0; /* sky */
-  --c4: #E8C4E0; /* lilac */
+  --c1: #F4C4A0;
+  --c2: #B8DDB8;
+  --c3: #B8D4F0;
+  --c4: #E8C4E0;
   --c1d: #7A4020;
   --c2d: #2A5C2A;
   --c3d: #1A4878;
@@ -39,21 +39,10 @@ body {
     radial-gradient(circle at 50% 90%, rgba(232,196,224,0.15) 0%, transparent 40%);
 }
 
-/* squiggly border via svg filter */
-.squig { filter: url(#squiggle); }
-
-/* HEADER */
 .hero {
   padding: 2.5rem 1.5rem 0;
   text-align: center;
   position: relative;
-}
-.hero-doodles {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  pointer-events: none;
-  overflow: hidden;
-  height: 100%;
 }
 .hero h1 {
   font-family: 'Caveat', cursive;
@@ -95,12 +84,9 @@ body {
   display: flex;
   justify-content: center;
 }
-
-/* wavy SVG divider */
 .wave-divider { width: 100%; overflow: hidden; line-height: 0; margin-top: -2px; }
 .wave-divider svg { display: block; width: 100%; }
 
-/* ADD BUTTON */
 .add-btn {
   font-family: 'Caveat', cursive;
   font-size: 22px;
@@ -120,15 +106,39 @@ body {
 }
 .add-btn:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 rgba(44,36,22,0.18); }
 .add-btn:active { transform: translate(1px, 1px); box-shadow: 2px 2px 0 rgba(44,36,22,0.12); }
+.add-btn:disabled { opacity: 0.5; cursor: default; transform: none; }
 
-/* MAIN */
 .main {
   max-width: 880px;
   margin: 0 auto;
   padding: 1.5rem 1.25rem 4rem;
 }
 
-/* SEARCH */
+/* sync status bar */
+.sync-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-family: 'Caveat', cursive;
+  font-size: 15px;
+  color: var(--ink3);
+  margin-bottom: 1rem;
+  min-height: 22px;
+  transition: opacity 0.3s;
+}
+.sync-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--ink3);
+  flex-shrink: 0;
+  transition: background 0.3s;
+}
+.sync-dot.synced { background: #4CAF50; }
+.sync-dot.saving { background: #FF9800; animation: pulse 1s infinite; }
+.sync-dot.error  { background: #f44336; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
 .search-wrap {
   position: relative;
   margin-bottom: 1.25rem;
@@ -155,12 +165,8 @@ body {
   transition: box-shadow 0.15s, transform 0.15s;
 }
 .search-wrap input::placeholder { color: var(--ink3); font-style: italic; }
-.search-wrap input:focus {
-  box-shadow: 4px 4px 0 rgba(44,36,22,0.18);
-  transform: translate(-1px, -1px);
-}
+.search-wrap input:focus { box-shadow: 4px 4px 0 rgba(44,36,22,0.18); transform: translate(-1px, -1px); }
 
-/* TABS */
 .tabs {
   display: flex;
   gap: 8px;
@@ -168,12 +174,7 @@ body {
   margin-bottom: 1.5rem;
   align-items: center;
 }
-.tabs-label {
-  font-family: 'Caveat', cursive;
-  font-size: 18px;
-  color: var(--ink3);
-  margin-right: 4px;
-}
+.tabs-label { font-family: 'Caveat', cursive; font-size: 18px; color: var(--ink3); margin-right: 4px; }
 .tab {
   font-family: 'Caveat', cursive;
   font-size: 18px;
@@ -194,7 +195,6 @@ body {
 .tab.active { background: var(--ink); color: var(--paper); box-shadow: 3px 3px 0 rgba(44,36,22,0.2); }
 .cat-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; border: 1.5px solid rgba(0,0,0,0.15); }
 
-/* CARDS */
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
@@ -215,7 +215,6 @@ body {
 .card:nth-child(3n+3) { transform: rotate(-0.3deg); }
 .card:hover { transform: rotate(0deg) translate(-2px,-2px) !important; box-shadow: 6px 6px 0 rgba(44,36,22,0.15); }
 
-/* colored top strip per category */
 .card-strip {
   position: absolute;
   top: 0; left: 16px; right: 16px;
@@ -223,7 +222,6 @@ body {
   border-radius: 999px;
   margin-top: -1px;
 }
-
 .card-top { margin-top: 10px; margin-bottom: 8px; }
 .card-name {
   font-family: 'Caveat', cursive;
@@ -246,7 +244,6 @@ body {
   margin-top: 5px;
   letter-spacing: 0.03em;
 }
-
 .card-actions {
   position: absolute;
   top: 14px; right: 14px;
@@ -271,13 +268,7 @@ body {
 }
 .icon-btn:hover { background: var(--ink); color: var(--paper); }
 .icon-btn.del:hover { background: #F4C4A0; color: var(--c1d); border-color: var(--c1d); }
-
-.card-divider {
-  border: none;
-  border-top: 1.5px dashed var(--paper3);
-  margin: 10px 0;
-}
-
+.card-divider { border: none; border-top: 1.5px dashed var(--paper3); margin: 10px 0; }
 .card-row {
   display: flex;
   align-items: flex-start;
@@ -290,9 +281,7 @@ body {
 .card-row i { font-size: 14px; color: var(--ink3); flex-shrink: 0; margin-top: 1px; }
 .card-row a { color: var(--ink2); text-decoration: underline; text-decoration-color: var(--ink3); text-underline-offset: 2px; }
 .card-row a:hover { color: #C4622D; }
-
 .card-notes { font-size: 13.5px; color: var(--ink2); line-height: 1.55; font-style: italic; }
-
 .card-footer {
   display: flex;
   align-items: center;
@@ -301,12 +290,7 @@ body {
   padding-top: 8px;
   border-top: 1.5px dashed var(--paper3);
 }
-.card-price {
-  font-family: 'Caveat', cursive;
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--ink3);
-}
+.card-price { font-family: 'Caveat', cursive; font-size: 18px; font-weight: 700; color: var(--ink3); }
 .card-link {
   font-size: 13px;
   font-weight: 700;
@@ -319,28 +303,35 @@ body {
 }
 .card-link:hover { text-decoration: underline; }
 
-/* EMPTY */
 .empty {
   grid-column: 1/-1;
   text-align: center;
   padding: 5rem 1rem;
   color: var(--ink3);
 }
-.empty-icon {
-  font-size: 48px;
-  display: block;
-  margin-bottom: 16px;
-  opacity: 0.4;
-}
-.empty-title {
-  font-family: 'Caveat', cursive;
-  font-size: 28px;
-  color: var(--ink2);
-  margin-bottom: 6px;
-}
+.empty-icon { font-size: 48px; display: block; margin-bottom: 16px; opacity: 0.4; }
+.empty-title { font-family: 'Caveat', cursive; font-size: 28px; color: var(--ink2); margin-bottom: 6px; }
 .empty-sub { font-size: 15px; font-style: italic; }
 
-/* MODAL */
+/* loading skeleton */
+.skeleton-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(255px, 1fr)); gap: 16px; }
+.skeleton-card {
+  background: white;
+  border: 2.5px solid var(--paper3);
+  border-radius: 18px;
+  padding: 1.25rem;
+  box-shadow: 4px 4px 0 rgba(44,36,22,0.06);
+}
+.skeleton-line {
+  height: 14px;
+  background: linear-gradient(90deg, var(--paper3) 25%, var(--paper2) 50%, var(--paper3) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+@keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
 .modal-bg {
   position: fixed;
   inset: 0;
@@ -363,22 +354,9 @@ body {
   box-shadow: 6px 6px 0 rgba(44,36,22,0.18);
   position: relative;
 }
-.modal-title {
-  font-family: 'Caveat', cursive;
-  font-size: 30px;
-  font-weight: 700;
-  color: var(--ink);
-  margin-bottom: 1.25rem;
-}
+.modal-title { font-family: 'Caveat', cursive; font-size: 30px; font-weight: 700; color: var(--ink); margin-bottom: 1.25rem; }
 .field { margin-bottom: 13px; }
-.field label {
-  display: block;
-  font-family: 'Caveat', cursive;
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--ink2);
-  margin-bottom: 4px;
-}
+.field label { display: block; font-family: 'Caveat', cursive; font-size: 17px; font-weight: 600; color: var(--ink2); margin-bottom: 4px; }
 .field input, .field select, .field textarea {
   width: 100%;
   background: white;
@@ -393,9 +371,7 @@ body {
   transition: box-shadow 0.15s;
 }
 .field input::placeholder, .field textarea::placeholder { color: var(--ink3); font-style: italic; }
-.field input:focus, .field select:focus, .field textarea:focus {
-  box-shadow: 3px 3px 0 rgba(44,36,22,0.15);
-}
+.field input:focus, .field select:focus, .field textarea:focus { box-shadow: 3px 3px 0 rgba(44,36,22,0.15); }
 .field textarea { height: 78px; resize: vertical; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 1.5rem; align-items: center; }
@@ -412,22 +388,9 @@ body {
 }
 .cancel-btn:hover { background: var(--paper3); }
 
-/* sticker decorations */
-.sticker {
-  position: absolute;
-  font-family: 'Caveat', cursive;
-  font-size: 13px;
-  font-weight: 700;
-  transform: rotate(-8deg);
-  opacity: 0.6;
-  pointer-events: none;
-  color: var(--ink3);
-  user-select: none;
-}
-
 @media (max-width: 580px) {
   .main { padding: 1.25rem 1rem 3rem; }
-  .cards { grid-template-columns: 1fr; }
+  .cards, .skeleton-grid { grid-template-columns: 1fr; }
   .field-row { grid-template-columns: 1fr; }
   .card:nth-child(n) { transform: none; }
 }
@@ -435,16 +398,6 @@ body {
 </head>
 <body>
 
-<svg width="0" height="0" style="position:absolute">
-  <defs>
-    <filter id="squiggle" x="-5%" y="-5%" width="110%" height="110%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.065" numOctaves="3" seed="2" result="noise"/>
-      <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G"/>
-    </filter>
-  </defs>
-</svg>
-
-<!-- little floating doodles -->
 <div style="position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden;z-index:0">
   <div style="position:absolute;top:8%;left:4%;font-size:28px;opacity:0.07;transform:rotate(-15deg);font-family:'Caveat',cursive">★</div>
   <div style="position:absolute;top:15%;right:6%;font-size:22px;opacity:0.07;transform:rotate(10deg);font-family:'Caveat',cursive">♥</div>
@@ -462,16 +415,15 @@ body {
   <h1>My <span class="nyc">NYC</span></h1>
   <div class="hero-sub">places i love & want to try 🗽</div>
   <div style="margin-top:12px">
-    <span class="hero-count" id="hero-count">0 spots saved</span>
+    <span class="hero-count" id="hero-count">loading…</span>
   </div>
   <div class="hero-bottom" style="margin-top:1.25rem;padding-bottom:2rem">
-    <button class="add-btn" onclick="openAdd()">
+    <button class="add-btn" id="add-btn" onclick="openAdd()" disabled>
       <i class="ti ti-plus" aria-hidden="true"></i> add a spot
     </button>
   </div>
 </div>
 
-<!-- wavy divider -->
 <div class="wave-divider">
   <svg viewBox="0 0 1440 40" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="height:40px">
     <path d="M0,20 C120,35 240,5 360,20 C480,35 600,5 720,20 C840,35 960,5 1080,20 C1200,35 1320,5 1440,20 L1440,40 L0,40 Z" fill="#FDFAF4"/>
@@ -480,13 +432,28 @@ body {
 </div>
 
 <div class="main">
+  <div class="sync-bar" id="sync-bar">
+    <span class="sync-dot" id="sync-dot"></span>
+    <span id="sync-text">loading your spots…</span>
+  </div>
+
   <div class="search-wrap">
     <i class="ti ti-search" aria-hidden="true"></i>
     <input type="text" id="search-input" placeholder="search your spots…" oninput="render()" />
   </div>
 
   <div class="tabs" id="tabs"></div>
-  <div class="cards" id="cards-grid"></div>
+  <div id="cards-area">
+    <!-- skeleton while loading -->
+    <div class="skeleton-grid">
+      ${[1,2,3].map(()=>`<div class="skeleton-card">
+        <div class="skeleton-line" style="width:60%;height:20px;margin-bottom:12px"></div>
+        <div class="skeleton-line" style="width:35%"></div>
+        <div class="skeleton-line" style="width:80%;margin-top:14px"></div>
+        <div class="skeleton-line" style="width:55%"></div>
+      </div>`).join('')}
+    </div>
+  </div>
 </div>
 
 </div>
@@ -502,24 +469,60 @@ const CATS = {
 };
 const ALL_CATS = ['All', ...Object.keys(CATS)];
 const CAT_EMOJI = { Eat: '🍜', Drink: '🍹', Shop: '🛍️', Explore: '📍' };
+const STORAGE_KEY = 'mynyc_places';
 
 let places = [];
 let filter = 'All';
 let editId = null;
+let loaded = false;
 
-function loadPlaces() {
-  try { places = JSON.parse(localStorage.getItem('mynyc_v2') || '[]'); } catch(e) { places = []; }
-  render();
+// ── Storage helpers ──────────────────────────────────────────────────
+function setSyncStatus(state, msg) {
+  const dot = document.getElementById('sync-dot');
+  const txt = document.getElementById('sync-text');
+  dot.className = 'sync-dot ' + state;
+  txt.textContent = msg;
 }
-function savePlaces() { localStorage.setItem('mynyc_v2', JSON.stringify(places)); }
-function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
+
+async function loadFromStorage() {
+  try {
+    const result = await window.storage.get(STORAGE_KEY);
+    places = result ? JSON.parse(result.value) : [];
+  } catch (e) {
+    // key not found yet — start fresh
+    places = [];
+  }
+  loaded = true;
+  document.getElementById('add-btn').disabled = false;
+  setSyncStatus('synced', 'synced ✓');
+  render();
+  // fade out sync bar after a moment
+  setTimeout(() => { document.getElementById('sync-bar').style.opacity = '0.4'; }, 2000);
+}
+
+async function saveToStorage() {
+  setSyncStatus('saving', 'saving…');
+  document.getElementById('sync-bar').style.opacity = '1';
+  try {
+    await window.storage.set(STORAGE_KEY, JSON.stringify(places));
+    setSyncStatus('synced', 'saved & synced ✓');
+    setTimeout(() => { document.getElementById('sync-bar').style.opacity = '0.4'; }, 2000);
+  } catch (e) {
+    setSyncStatus('error', 'save failed — check connection');
+  }
+}
+
+// ── Render ──────────────────────────────────────────────────────────
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function uid()  { return Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
 
 function render() {
+  if (!loaded) return;
   renderTabs();
   renderCards();
   const n = places.length;
-  document.getElementById('hero-count').textContent = n === 0 ? 'nothing saved yet!' : `${n} spot${n===1?'':'s'} saved ✓`;
+  document.getElementById('hero-count').textContent =
+    n === 0 ? 'nothing saved yet!' : `${n} spot${n===1?'':'s'} saved ✓`;
 }
 
 function renderTabs() {
@@ -535,21 +538,21 @@ function renderTabs() {
 }
 
 function renderCards() {
-  const grid = document.getElementById('cards-grid');
+  const area = document.getElementById('cards-area');
   const q = document.getElementById('search-input').value.trim().toLowerCase();
   let shown = filter === 'All' ? [...places] : places.filter(p => p.category === filter);
   if (q) shown = shown.filter(p => [p.name,p.neighborhood,p.address,p.notes,p.category].some(f=>(f||'').toLowerCase().includes(q)));
 
   if (!shown.length) {
-    grid.innerHTML = `<div class="empty">
+    area.innerHTML = `<div class="cards"><div class="empty">
       <span class="empty-icon">🗺️</span>
       <div class="empty-title">${q ? 'hmm, nothing found!' : filter !== 'All' ? 'no '+filter.toLowerCase()+' yet!' : 'so empty in here!'}</div>
       <div class="empty-sub">${q ? 'try searching something else?' : 'add your first spot above ↑'}</div>
-    </div>`;
+    </div></div>`;
     return;
   }
 
-  grid.innerHTML = shown.map(p => {
+  area.innerHTML = `<div class="cards">` + shown.map(p => {
     const cat = CATS[p.category] || CATS.Explore;
     const mapsUrl = p.address ? `https://maps.google.com/?q=${encodeURIComponent(p.address+' New York')}` : null;
     const emoji = CAT_EMOJI[p.category] || '📍';
@@ -573,15 +576,16 @@ function renderCards() {
         ${p.website ? `<a class="card-link" href="${esc(p.website)}" target="_blank" rel="noopener"><i class="ti ti-external-link" style="font-size:13px"></i> visit</a>` : ''}
       </div>` : ''}
     </div>`;
-  }).join('');
+  }).join('') + `</div>`;
 }
 
 function setFilter(c) { filter = c; render(); }
 
-function deletePlace(id) {
+async function deletePlace(id) {
   if (!confirm('remove this spot? 🥺')) return;
   places = places.filter(p => p.id !== id);
-  savePlaces(); render();
+  render();
+  await saveToStorage();
 }
 
 function openAdd() { editId = null; showModal(); }
@@ -615,7 +619,7 @@ function showModal(data) {
 
 function closeModal() { document.getElementById('modal-container').innerHTML = ''; }
 
-function saveModal() {
+async function saveModal() {
   const name = document.getElementById('f-name').value.trim();
   if (!name) { alert('give it a name! 🙂'); return; }
   const obj = {
@@ -630,10 +634,13 @@ function saveModal() {
   };
   if (editId) { places = places.map(p => p.id === editId ? obj : p); }
   else { places.push(obj); }
-  savePlaces(); closeModal(); render();
+  closeModal();
+  render();
+  await saveToStorage();
 }
 
-loadPlaces();
+// kick off
+loadFromStorage();
 </script>
 </body>
 </html>
