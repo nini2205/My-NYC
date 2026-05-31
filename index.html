@@ -9,384 +9,115 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.4.0/dist/tabler-icons.min.css" />
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --paper: #FDFAF4;
-  --paper2: #F7F2E8;
-  --paper3: #EFE8D8;
-  --ink: #2C2416;
-  --ink2: #6B5E48;
-  --ink3: #A8967C;
-  --squiggle: #2C2416;
-  --c1: #F4C4A0;
-  --c2: #B8DDB8;
-  --c3: #B8D4F0;
-  --c4: #E8C4E0;
-  --c1d: #7A4020;
-  --c2d: #2A5C2A;
-  --c3d: #1A4878;
-  --c4d: #6A2868;
+  --paper: #FDFAF4; --paper2: #F7F2E8; --paper3: #EFE8D8;
+  --ink: #2C2416; --ink2: #6B5E48; --ink3: #A8967C;
+  --c1: #F4C4A0; --c2: #B8DDB8; --c3: #B8D4F0; --c4: #E8C4E0;
+  --c1d: #7A4020; --c2d: #2A5C2A; --c3d: #1A4878; --c4d: #6A2868;
 }
-
 body {
-  font-family: 'Nunito', sans-serif;
-  background: var(--paper);
-  color: var(--ink);
-  min-height: 100vh;
-  background-image:
-    radial-gradient(circle at 15% 20%, rgba(244,196,160,0.18) 0%, transparent 45%),
+  font-family: 'Nunito', sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh;
+  background-image: radial-gradient(circle at 15% 20%, rgba(244,196,160,0.18) 0%, transparent 45%),
     radial-gradient(circle at 85% 70%, rgba(184,212,240,0.18) 0%, transparent 45%),
     radial-gradient(circle at 50% 90%, rgba(232,196,224,0.15) 0%, transparent 40%);
 }
-
-.hero {
-  padding: 2.5rem 1.5rem 0;
-  text-align: center;
-  position: relative;
-}
-.hero h1 {
-  font-family: 'Caveat', cursive;
-  font-size: clamp(52px, 12vw, 90px);
-  font-weight: 700;
-  color: var(--ink);
-  line-height: 1;
-  letter-spacing: -0.01em;
-  position: relative;
-  display: inline-block;
-}
-.hero h1 .nyc {
-  color: #C4622D;
-  display: inline-block;
-  transform: rotate(-2deg);
-  transform-origin: center bottom;
-}
-.hero-sub {
-  font-family: 'Caveat', cursive;
-  font-size: 20px;
-  color: var(--ink3);
-  margin-top: 4px;
-  transform: rotate(-0.5deg);
-  display: inline-block;
-}
-.hero-count {
-  display: inline-block;
-  background: var(--ink);
-  color: var(--paper);
-  font-family: 'Caveat', cursive;
-  font-size: 16px;
-  padding: 3px 14px;
-  border-radius: 999px;
-  margin-top: 10px;
-  transform: rotate(1deg);
-}
-.hero-bottom {
-  margin-top: 1.25rem;
-  display: flex;
-  justify-content: center;
-}
+.hero { padding: 2.5rem 1.5rem 0; text-align: center; position: relative; }
+.hero h1 { font-family: 'Caveat', cursive; font-size: clamp(52px,12vw,90px); font-weight: 700; color: var(--ink); line-height: 1; letter-spacing: -0.01em; display: inline-block; }
+.hero h1 .nyc { color: #C4622D; display: inline-block; transform: rotate(-2deg); transform-origin: center bottom; }
+.hero-sub { font-family: 'Caveat', cursive; font-size: 20px; color: var(--ink3); margin-top: 4px; transform: rotate(-0.5deg); display: inline-block; }
+.hero-count { display: inline-block; background: var(--ink); color: var(--paper); font-family: 'Caveat', cursive; font-size: 16px; padding: 3px 14px; border-radius: 999px; margin-top: 10px; transform: rotate(1deg); }
+.hero-bottom { margin-top: 1.25rem; display: flex; justify-content: center; }
 .wave-divider { width: 100%; overflow: hidden; line-height: 0; margin-top: -2px; }
 .wave-divider svg { display: block; width: 100%; }
-
-.add-btn {
-  font-family: 'Caveat', cursive;
-  font-size: 22px;
-  font-weight: 700;
-  background: var(--ink);
-  color: var(--paper);
-  border: none;
-  border-radius: 999px;
-  padding: 10px 28px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  position: relative;
-  transition: transform 0.15s;
-  box-shadow: 4px 4px 0 rgba(44,36,22,0.15);
-}
-.add-btn:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 rgba(44,36,22,0.18); }
-.add-btn:active { transform: translate(1px, 1px); box-shadow: 2px 2px 0 rgba(44,36,22,0.12); }
+.add-btn { font-family: 'Caveat', cursive; font-size: 22px; font-weight: 700; background: var(--ink); color: var(--paper); border: none; border-radius: 999px; padding: 10px 28px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: transform 0.15s; box-shadow: 4px 4px 0 rgba(44,36,22,0.15); }
+.add-btn:hover { transform: translate(-1px,-1px); box-shadow: 5px 5px 0 rgba(44,36,22,0.18); }
+.add-btn:active { transform: translate(1px,1px); box-shadow: 2px 2px 0 rgba(44,36,22,0.12); }
 .add-btn:disabled { opacity: 0.5; cursor: default; transform: none; }
+.main { max-width: 880px; margin: 0 auto; padding: 1.5rem 1.25rem 4rem; }
 
-.main {
-  max-width: 880px;
-  margin: 0 auto;
-  padding: 1.5rem 1.25rem 4rem;
-}
-
-/* sync status bar */
-.sync-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  font-family: 'Caveat', cursive;
-  font-size: 15px;
-  color: var(--ink3);
-  margin-bottom: 1rem;
-  min-height: 22px;
-  transition: opacity 0.3s;
-}
-.sync-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--ink3);
-  flex-shrink: 0;
-  transition: background 0.3s;
-}
+/* sync bar */
+.sync-bar { display: flex; align-items: center; justify-content: center; gap: 7px; font-family: 'Caveat', cursive; font-size: 15px; color: var(--ink3); margin-bottom: 1rem; min-height: 22px; transition: opacity 0.3s; }
+.sync-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ink3); flex-shrink: 0; transition: background 0.3s; }
 .sync-dot.synced { background: #4CAF50; }
 .sync-dot.saving { background: #FF9800; animation: pulse 1s infinite; }
-.sync-dot.error  { background: #f44336; }
+.sync-dot.error { background: #f44336; }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.sync-settings-btn { font-family: 'Caveat', cursive; font-size: 14px; background: none; border: 1.5px solid var(--ink3); border-radius: 999px; padding: 2px 10px; cursor: pointer; color: var(--ink3); margin-left: 6px; }
+.sync-settings-btn:hover { border-color: var(--ink); color: var(--ink); }
 
-.search-wrap {
-  position: relative;
-  margin-bottom: 1.25rem;
-}
-.search-wrap i {
-  position: absolute;
-  left: 14px; top: 50%;
-  transform: translateY(-50%);
-  font-size: 18px;
-  color: var(--ink3);
-  pointer-events: none;
-}
-.search-wrap input {
-  width: 100%;
-  padding: 13px 16px 13px 44px;
-  background: white;
-  border: 2.5px solid var(--ink);
-  border-radius: 999px;
-  font-size: 16px;
-  font-family: 'Nunito', sans-serif;
-  color: var(--ink);
-  outline: none;
-  box-shadow: 3px 3px 0 rgba(44,36,22,0.12);
-  transition: box-shadow 0.15s, transform 0.15s;
-}
+.search-wrap { position: relative; margin-bottom: 1.25rem; }
+.search-wrap i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 18px; color: var(--ink3); pointer-events: none; }
+.search-wrap input { width: 100%; padding: 13px 16px 13px 44px; background: white; border: 2.5px solid var(--ink); border-radius: 999px; font-size: 16px; font-family: 'Nunito', sans-serif; color: var(--ink); outline: none; box-shadow: 3px 3px 0 rgba(44,36,22,0.12); transition: box-shadow 0.15s, transform 0.15s; }
 .search-wrap input::placeholder { color: var(--ink3); font-style: italic; }
-.search-wrap input:focus { box-shadow: 4px 4px 0 rgba(44,36,22,0.18); transform: translate(-1px, -1px); }
+.search-wrap input:focus { box-shadow: 4px 4px 0 rgba(44,36,22,0.18); transform: translate(-1px,-1px); }
 
-.tabs {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 1.5rem;
-  align-items: center;
-}
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.5rem; align-items: center; }
 .tabs-label { font-family: 'Caveat', cursive; font-size: 18px; color: var(--ink3); margin-right: 4px; }
-.tab {
-  font-family: 'Caveat', cursive;
-  font-size: 18px;
-  font-weight: 600;
-  padding: 6px 18px;
-  border-radius: 999px;
-  cursor: pointer;
-  border: 2px solid var(--ink);
-  color: var(--ink);
-  background: white;
-  transition: all 0.15s;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  box-shadow: 2px 2px 0 rgba(44,36,22,0.1);
-}
+.tab { font-family: 'Caveat', cursive; font-size: 18px; font-weight: 600; padding: 6px 18px; border-radius: 999px; cursor: pointer; border: 2px solid var(--ink); color: var(--ink); background: white; transition: all 0.15s; display: flex; align-items: center; gap: 6px; box-shadow: 2px 2px 0 rgba(44,36,22,0.1); }
 .tab:hover:not(.active) { transform: translate(-1px,-1px); box-shadow: 3px 3px 0 rgba(44,36,22,0.12); }
 .tab.active { background: var(--ink); color: var(--paper); box-shadow: 3px 3px 0 rgba(44,36,22,0.2); }
 .cat-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; border: 1.5px solid rgba(0,0,0,0.15); }
 
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
-  gap: 16px;
-}
-
-.card {
-  background: white;
-  border: 2.5px solid var(--ink);
-  border-radius: 18px;
-  padding: 1.25rem;
-  position: relative;
-  transition: transform 0.15s, box-shadow 0.15s;
-  box-shadow: 4px 4px 0 rgba(44,36,22,0.12);
-}
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(255px,1fr)); gap: 16px; }
+.card { background: white; border: 2.5px solid var(--ink); border-radius: 18px; padding: 1.25rem; position: relative; transition: transform 0.15s, box-shadow 0.15s; box-shadow: 4px 4px 0 rgba(44,36,22,0.12); }
 .card:nth-child(3n+1) { transform: rotate(-0.5deg); }
 .card:nth-child(3n+2) { transform: rotate(0.4deg); }
 .card:nth-child(3n+3) { transform: rotate(-0.3deg); }
 .card:hover { transform: rotate(0deg) translate(-2px,-2px) !important; box-shadow: 6px 6px 0 rgba(44,36,22,0.15); }
-
-.card-strip {
-  position: absolute;
-  top: 0; left: 16px; right: 16px;
-  height: 5px;
-  border-radius: 999px;
-  margin-top: -1px;
-}
+.card-strip { position: absolute; top: 0; left: 16px; right: 16px; height: 5px; border-radius: 999px; margin-top: -1px; }
 .card-top { margin-top: 10px; margin-bottom: 8px; }
-.card-name {
-  font-family: 'Caveat', cursive;
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--ink);
-  line-height: 1.2;
-  padding-right: 52px;
-}
-.card-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 12px;
-  font-weight: 700;
-  font-family: 'Nunito', sans-serif;
-  padding: 3px 10px;
-  border-radius: 999px;
-  border: 1.5px solid rgba(0,0,0,0.1);
-  margin-top: 5px;
-  letter-spacing: 0.03em;
-}
-.card-actions {
-  position: absolute;
-  top: 14px; right: 14px;
-  display: flex;
-  gap: 4px;
-  opacity: 0;
-  transition: opacity 0.15s;
-}
+.card-name { font-family: 'Caveat', cursive; font-size: 22px; font-weight: 700; color: var(--ink); line-height: 1.2; padding-right: 52px; }
+.card-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; font-family: 'Nunito', sans-serif; padding: 3px 10px; border-radius: 999px; border: 1.5px solid rgba(0,0,0,0.1); margin-top: 5px; letter-spacing: 0.03em; }
+.card-actions { position: absolute; top: 14px; right: 14px; display: flex; gap: 4px; opacity: 0; transition: opacity 0.15s; }
 .card:hover .card-actions { opacity: 1; }
-.icon-btn {
-  background: var(--paper2);
-  border: 1.5px solid var(--ink);
-  cursor: pointer;
-  color: var(--ink2);
-  width: 30px; height: 30px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  transition: all 0.1s;
-}
+.icon-btn { background: var(--paper2); border: 1.5px solid var(--ink); cursor: pointer; color: var(--ink2); width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: all 0.1s; }
 .icon-btn:hover { background: var(--ink); color: var(--paper); }
 .icon-btn.del:hover { background: #F4C4A0; color: var(--c1d); border-color: var(--c1d); }
 .card-divider { border: none; border-top: 1.5px dashed var(--paper3); margin: 10px 0; }
-.card-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 7px;
-  font-size: 13.5px;
-  color: var(--ink2);
-  margin-bottom: 5px;
-  line-height: 1.4;
-}
+.card-row { display: flex; align-items: flex-start; gap: 7px; font-size: 13.5px; color: var(--ink2); margin-bottom: 5px; line-height: 1.4; }
 .card-row i { font-size: 14px; color: var(--ink3); flex-shrink: 0; margin-top: 1px; }
 .card-row a { color: var(--ink2); text-decoration: underline; text-decoration-color: var(--ink3); text-underline-offset: 2px; }
 .card-row a:hover { color: #C4622D; }
 .card-notes { font-size: 13.5px; color: var(--ink2); line-height: 1.55; font-style: italic; }
-.card-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 10px;
-  padding-top: 8px;
-  border-top: 1.5px dashed var(--paper3);
-}
+.card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; padding-top: 8px; border-top: 1.5px dashed var(--paper3); }
 .card-price { font-family: 'Caveat', cursive; font-size: 18px; font-weight: 700; color: var(--ink3); }
-.card-link {
-  font-size: 13px;
-  font-weight: 700;
-  color: #C4622D;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-family: 'Nunito', sans-serif;
-}
+.card-link { font-size: 13px; font-weight: 700; color: #C4622D; text-decoration: none; display: flex; align-items: center; gap: 4px; font-family: 'Nunito', sans-serif; }
 .card-link:hover { text-decoration: underline; }
 
-.empty {
-  grid-column: 1/-1;
-  text-align: center;
-  padding: 5rem 1rem;
-  color: var(--ink3);
-}
+.empty { grid-column: 1/-1; text-align: center; padding: 5rem 1rem; color: var(--ink3); }
 .empty-icon { font-size: 48px; display: block; margin-bottom: 16px; opacity: 0.4; }
 .empty-title { font-family: 'Caveat', cursive; font-size: 28px; color: var(--ink2); margin-bottom: 6px; }
 .empty-sub { font-size: 15px; font-style: italic; }
 
-/* loading skeleton */
-.skeleton-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(255px, 1fr)); gap: 16px; }
-.skeleton-card {
-  background: white;
-  border: 2.5px solid var(--paper3);
-  border-radius: 18px;
-  padding: 1.25rem;
-  box-shadow: 4px 4px 0 rgba(44,36,22,0.06);
-}
-.skeleton-line {
-  height: 14px;
-  background: linear-gradient(90deg, var(--paper3) 25%, var(--paper2) 50%, var(--paper3) 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: 6px;
-  margin-bottom: 10px;
-}
+.skeleton-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(255px,1fr)); gap: 16px; }
+.skeleton-card { background: white; border: 2.5px solid var(--paper3); border-radius: 18px; padding: 1.25rem; box-shadow: 4px 4px 0 rgba(44,36,22,0.06); }
+.skeleton-line { height: 14px; background: linear-gradient(90deg,var(--paper3) 25%,var(--paper2) 50%,var(--paper3) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: 6px; margin-bottom: 10px; }
 @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
 
-.modal-bg {
-  position: fixed;
-  inset: 0;
-  background: rgba(44,36,22,0.45);
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 5vh 1rem 2rem;
-  z-index: 100;
-  overflow-y: auto;
-  backdrop-filter: blur(2px);
-}
-.modal {
-  background: var(--paper);
-  border: 2.5px solid var(--ink);
-  border-radius: 24px;
-  padding: 1.75rem;
-  width: 100%;
-  max-width: 460px;
-  box-shadow: 6px 6px 0 rgba(44,36,22,0.18);
-  position: relative;
-}
+/* modal */
+.modal-bg { position: fixed; inset: 0; background: rgba(44,36,22,0.45); display: flex; align-items: flex-start; justify-content: center; padding: 5vh 1rem 2rem; z-index: 100; overflow-y: auto; backdrop-filter: blur(2px); }
+.modal { background: var(--paper); border: 2.5px solid var(--ink); border-radius: 24px; padding: 1.75rem; width: 100%; max-width: 460px; box-shadow: 6px 6px 0 rgba(44,36,22,0.18); position: relative; }
 .modal-title { font-family: 'Caveat', cursive; font-size: 30px; font-weight: 700; color: var(--ink); margin-bottom: 1.25rem; }
 .field { margin-bottom: 13px; }
 .field label { display: block; font-family: 'Caveat', cursive; font-size: 17px; font-weight: 600; color: var(--ink2); margin-bottom: 4px; }
-.field input, .field select, .field textarea {
-  width: 100%;
-  background: white;
-  color: var(--ink);
-  border: 2px solid var(--ink);
-  border-radius: 10px;
-  padding: 9px 13px;
-  font-size: 15px;
-  font-family: 'Nunito', sans-serif;
-  outline: none;
-  box-shadow: 2px 2px 0 rgba(44,36,22,0.1);
-  transition: box-shadow 0.15s;
-}
+.field input, .field select, .field textarea { width: 100%; background: white; color: var(--ink); border: 2px solid var(--ink); border-radius: 10px; padding: 9px 13px; font-size: 15px; font-family: 'Nunito', sans-serif; outline: none; box-shadow: 2px 2px 0 rgba(44,36,22,0.1); transition: box-shadow 0.15s; }
 .field input::placeholder, .field textarea::placeholder { color: var(--ink3); font-style: italic; }
 .field input:focus, .field select:focus, .field textarea:focus { box-shadow: 3px 3px 0 rgba(44,36,22,0.15); }
 .field textarea { height: 78px; resize: vertical; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 1.5rem; align-items: center; }
-.cancel-btn {
-  font-family: 'Caveat', cursive;
-  font-size: 20px;
-  background: none;
-  border: 2px solid var(--ink);
-  border-radius: 999px;
-  padding: 7px 20px;
-  cursor: pointer;
-  color: var(--ink2);
-  transition: all 0.15s;
-}
+.cancel-btn { font-family: 'Caveat', cursive; font-size: 20px; background: none; border: 2px solid var(--ink); border-radius: 999px; padding: 7px 20px; cursor: pointer; color: var(--ink2); transition: all 0.15s; }
 .cancel-btn:hover { background: var(--paper3); }
+
+/* setup modal */
+.setup-note { font-size: 13.5px; color: var(--ink2); line-height: 1.6; margin-bottom: 14px; background: var(--paper2); border-radius: 10px; padding: 12px 14px; border: 1.5px dashed var(--paper3); }
+.setup-note a { color: #C4622D; }
+.setup-note ol { padding-left: 18px; margin-top: 6px; }
+.setup-note ol li { margin-bottom: 4px; }
+.setup-steps-toggle { font-family: 'Caveat', cursive; font-size: 16px; color: #C4622D; cursor: pointer; background: none; border: none; padding: 0; margin-bottom: 10px; display: flex; align-items: center; gap: 4px; }
+.migrate-section { margin-top: 14px; padding-top: 14px; border-top: 1.5px dashed var(--paper3); }
+.migrate-section label { font-family: 'Caveat', cursive; font-size: 16px; color: var(--ink2); display: block; margin-bottom: 6px; }
+.migrate-section textarea { width: 100%; height: 70px; font-size: 12px; font-family: monospace; background: white; border: 2px solid var(--ink); border-radius: 8px; padding: 8px; color: var(--ink); resize: vertical; outline: none; }
 
 @media (max-width: 580px) {
   .main { padding: 1.25rem 1rem 3rem; }
@@ -407,7 +138,6 @@ body {
 </div>
 
 <div style="position:relative;z-index:1">
-
 <div class="hero">
   <div style="margin-bottom:6px">
     <span style="font-family:'Caveat',cursive;font-size:18px;color:var(--ink3);transform:rotate(-1deg);display:inline-block">✦ Welcome to</span>
@@ -434,7 +164,8 @@ body {
 <div class="main">
   <div class="sync-bar" id="sync-bar">
     <span class="sync-dot" id="sync-dot"></span>
-    <span id="sync-text">loading your spots…</span>
+    <span id="sync-text">connecting…</span>
+    <button class="sync-settings-btn" onclick="openSetup()" title="Sync settings">⚙ sync</button>
   </div>
 
   <div class="search-wrap">
@@ -444,18 +175,13 @@ body {
 
   <div class="tabs" id="tabs"></div>
   <div id="cards-area">
-    <!-- skeleton while loading -->
-    <div class="skeleton-grid">
-      ${[1,2,3].map(()=>`<div class="skeleton-card">
-        <div class="skeleton-line" style="width:60%;height:20px;margin-bottom:12px"></div>
-        <div class="skeleton-line" style="width:35%"></div>
-        <div class="skeleton-line" style="width:80%;margin-top:14px"></div>
-        <div class="skeleton-line" style="width:55%"></div>
-      </div>`).join('')}
+    <div class="skeleton-grid" id="skeleton">
+      <div class="skeleton-card"><div class="skeleton-line" style="width:60%;height:20px;margin-bottom:12px"></div><div class="skeleton-line" style="width:35%"></div><div class="skeleton-line" style="width:80%;margin-top:14px"></div><div class="skeleton-line" style="width:55%"></div></div>
+      <div class="skeleton-card"><div class="skeleton-line" style="width:55%;height:20px;margin-bottom:12px"></div><div class="skeleton-line" style="width:40%"></div><div class="skeleton-line" style="width:70%;margin-top:14px"></div><div class="skeleton-line" style="width:60%"></div></div>
+      <div class="skeleton-card"><div class="skeleton-line" style="width:65%;height:20px;margin-bottom:12px"></div><div class="skeleton-line" style="width:30%"></div><div class="skeleton-line" style="width:75%;margin-top:14px"></div><div class="skeleton-line" style="width:50%"></div></div>
     </div>
   </div>
 </div>
-
 </div>
 
 <div id="modal-container"></div>
@@ -469,55 +195,127 @@ const CATS = {
 };
 const ALL_CATS = ['All', ...Object.keys(CATS)];
 const CAT_EMOJI = { Eat: '🍜', Drink: '🍹', Shop: '🛍️', Explore: '📍' };
-const STORAGE_KEY = 'mynyc_places';
+const GIST_FILENAME = 'mynyc-places.json';
+const LS_TOKEN = 'mynyc_gh_token';
+const LS_GIST  = 'mynyc_gh_gist';
 
 let places = [];
 let filter = 'All';
 let editId = null;
 let loaded = false;
 
-// ── Storage helpers ──────────────────────────────────────────────────
+// ── Sync status ──────────────────────────────────────────────────────
 function setSyncStatus(state, msg) {
-  const dot = document.getElementById('sync-dot');
-  const txt = document.getElementById('sync-text');
-  dot.className = 'sync-dot ' + state;
-  txt.textContent = msg;
+  document.getElementById('sync-dot').className = 'sync-dot ' + state;
+  document.getElementById('sync-text').textContent = msg;
+}
+function fadeSync() {
+  setTimeout(() => { document.getElementById('sync-bar').style.opacity = '0.5'; }, 2500);
+}
+function showSync() { document.getElementById('sync-bar').style.opacity = '1'; }
+
+// ── GitHub Gist API ──────────────────────────────────────────────────
+function getCredentials() {
+  return {
+    token: localStorage.getItem(LS_TOKEN) || '',
+    gistId: localStorage.getItem(LS_GIST) || ''
+  };
 }
 
-async function loadFromStorage() {
-  try {
-    const result = await window.storage.get(STORAGE_KEY);
-    places = result ? JSON.parse(result.value) : [];
-  } catch (e) {
-    // key not found yet — start fresh
-    places = [];
+async function gistLoad() {
+  const { token, gistId } = getCredentials();
+  if (!token) { openSetup(); return; }
+
+  setSyncStatus('saving', 'loading from GitHub…');
+  showSync();
+
+  // If no gist ID yet, create a new gist
+  if (!gistId) {
+    await gistCreate(token, []);
+    return;
   }
-  loaded = true;
-  document.getElementById('add-btn').disabled = false;
-  setSyncStatus('synced', 'synced ✓');
-  render();
-  // fade out sync bar after a moment
-  setTimeout(() => { document.getElementById('sync-bar').style.opacity = '0.4'; }, 2000);
+
+  try {
+    const res = await fetch(`https://api.github.com/gists/${gistId}`, {
+      headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' }
+    });
+    if (res.status === 404) {
+      // Gist deleted — create fresh
+      localStorage.removeItem(LS_GIST);
+      await gistCreate(token, []);
+      return;
+    }
+    if (!res.ok) throw new Error(`GitHub API error ${res.status}`);
+    const data = await res.json();
+    const content = data.files[GIST_FILENAME]?.content || '[]';
+    places = JSON.parse(content);
+    loaded = true;
+    document.getElementById('add-btn').disabled = false;
+    setSyncStatus('synced', `synced ✓`);
+    fadeSync();
+    render();
+  } catch (e) {
+    setSyncStatus('error', 'load failed — check token');
+    loaded = true;
+    document.getElementById('add-btn').disabled = false;
+    render();
+  }
 }
 
-async function saveToStorage() {
+async function gistCreate(token, initialPlaces) {
+  try {
+    const res = await fetch('https://api.github.com/gists', {
+      method: 'POST',
+      headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        description: 'My NYC places data',
+        public: false,
+        files: { [GIST_FILENAME]: { content: JSON.stringify(initialPlaces, null, 2) } }
+      })
+    });
+    if (!res.ok) throw new Error(`Create failed ${res.status}`);
+    const data = await res.json();
+    localStorage.setItem(LS_GIST, data.id);
+    places = initialPlaces;
+    loaded = true;
+    document.getElementById('add-btn').disabled = false;
+    setSyncStatus('synced', 'gist created & synced ✓');
+    fadeSync();
+    render();
+  } catch (e) {
+    setSyncStatus('error', 'could not create gist');
+    loaded = true;
+    document.getElementById('add-btn').disabled = false;
+    render();
+  }
+}
+
+async function gistSave() {
+  const { token, gistId } = getCredentials();
+  if (!token || !gistId) { setSyncStatus('error', 'not connected'); return; }
+  showSync();
   setSyncStatus('saving', 'saving…');
-  document.getElementById('sync-bar').style.opacity = '1';
   try {
-    await window.storage.set(STORAGE_KEY, JSON.stringify(places));
+    const res = await fetch(`https://api.github.com/gists/${gistId}`, {
+      method: 'PATCH',
+      headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ files: { [GIST_FILENAME]: { content: JSON.stringify(places, null, 2) } } })
+    });
+    if (!res.ok) throw new Error(`Save failed ${res.status}`);
     setSyncStatus('synced', 'saved & synced ✓');
-    setTimeout(() => { document.getElementById('sync-bar').style.opacity = '0.4'; }, 2000);
+    fadeSync();
   } catch (e) {
-    setSyncStatus('error', 'save failed — check connection');
+    setSyncStatus('error', 'save failed');
   }
 }
 
-// ── Render ──────────────────────────────────────────────────────────
+// ── Render ───────────────────────────────────────────────────────────
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function uid()  { return Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
 
 function render() {
   if (!loaded) return;
+  document.getElementById('skeleton')?.remove();
   renderTabs();
   renderCards();
   const n = places.length;
@@ -560,16 +358,16 @@ function renderCards() {
     return `<div class="card">
       <div class="card-strip" style="background:${cat.bg}"></div>
       <div class="card-actions">
-        <button class="icon-btn" onclick="openEdit('${p.id}')" aria-label="Edit"><i class="ti ti-edit" aria-hidden="true"></i></button>
-        <button class="icon-btn del" onclick="deletePlace('${p.id}')" aria-label="Delete"><i class="ti ti-trash" aria-hidden="true"></i></button>
+        <button class="icon-btn" onclick="openEdit('${p.id}')" aria-label="Edit"><i class="ti ti-edit"></i></button>
+        <button class="icon-btn del" onclick="deletePlace('${p.id}')" aria-label="Delete"><i class="ti ti-trash"></i></button>
       </div>
       <div class="card-top">
         <div class="card-name">${esc(p.name)}</div>
         <span class="card-badge" style="background:${cat.bg};color:${cat.text}">${emoji} ${p.category}</span>
       </div>
       ${(p.neighborhood||p.address) ? `<hr class="card-divider">` : ''}
-      ${p.neighborhood ? `<div class="card-row"><i class="ti ti-map-pin" aria-hidden="true"></i>${esc(p.neighborhood)}</div>` : ''}
-      ${p.address ? `<div class="card-row"><i class="ti ti-route" aria-hidden="true"></i><a href="${mapsUrl}" target="_blank" rel="noopener">${esc(p.address)}</a></div>` : ''}
+      ${p.neighborhood ? `<div class="card-row"><i class="ti ti-map-pin"></i>${esc(p.neighborhood)}</div>` : ''}
+      ${p.address ? `<div class="card-row"><i class="ti ti-route"></i><a href="${mapsUrl}" target="_blank" rel="noopener">${esc(p.address)}</a></div>` : ''}
       ${p.notes ? `<hr class="card-divider"><div class="card-notes">${esc(p.notes)}</div>` : ''}
       ${hasFooter ? `<div class="card-footer">
         <div class="card-price">${esc(p.price||'')}</div>
@@ -585,9 +383,10 @@ async function deletePlace(id) {
   if (!confirm('remove this spot? 🥺')) return;
   places = places.filter(p => p.id !== id);
   render();
-  await saveToStorage();
+  await gistSave();
 }
 
+// ── Add / Edit modal ─────────────────────────────────────────────────
 function openAdd() { editId = null; showModal(); }
 function openEdit(id) { editId = id; showModal(places.find(p => p.id === id)); }
 
@@ -623,8 +422,7 @@ async function saveModal() {
   const name = document.getElementById('f-name').value.trim();
   if (!name) { alert('give it a name! 🙂'); return; }
   const obj = {
-    id: editId || uid(),
-    name,
+    id: editId || uid(), name,
     category: document.getElementById('f-cat').value,
     neighborhood: document.getElementById('f-nbhd').value.trim(),
     address: document.getElementById('f-addr').value.trim(),
@@ -636,11 +434,119 @@ async function saveModal() {
   else { places.push(obj); }
   closeModal();
   render();
-  await saveToStorage();
+  await gistSave();
 }
 
-// kick off
-loadFromStorage();
+// ── Setup modal ──────────────────────────────────────────────────────
+function openSetup() {
+  const { token, gistId } = getCredentials();
+  // Read existing localStorage data for migration offer
+  let legacyJson = '';
+  try {
+    const legacy = localStorage.getItem('mynyc_v2') || localStorage.getItem('mynyc');
+    if (legacy) legacyJson = legacy;
+  } catch(e) {}
+
+  document.getElementById('modal-container').innerHTML = `
+    <div class="modal-bg" onclick="if(event.target===this)closeSetup()">
+      <div class="modal" role="dialog" aria-modal="true" style="max-width:500px">
+        <div class="modal-title">⚙ GitHub Sync Setup</div>
+
+        <details style="margin-bottom:14px">
+          <summary style="font-family:'Caveat',cursive;font-size:17px;color:#C4622D;cursor:pointer;list-style:none">
+            ▸ How to get a token (2 min)
+          </summary>
+          <div class="setup-note" style="margin-top:8px">
+            <ol>
+              <li>Go to <a href="https://github.com/settings/tokens/new" target="_blank">github.com/settings/tokens/new</a></li>
+              <li>Name it <strong>nyc-app</strong>, expiration → <strong>No expiration</strong></li>
+              <li>Check only the <strong>gist</strong> scope ✓</li>
+              <li>Click <strong>Generate token</strong> and copy it</li>
+              <li>Paste below — your data lives in a <em>private</em> Gist in your account</li>
+            </ol>
+          </div>
+        </details>
+
+        <div class="field">
+          <label>GitHub Personal Access Token</label>
+          <input id="s-token" type="password" value="${esc(token)}" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" />
+        </div>
+        <div class="field">
+          <label>Gist ID <span style="font-size:13px;font-weight:400;color:var(--ink3)">(leave blank to auto-create)</span></label>
+          <input id="s-gist" value="${esc(gistId)}" placeholder="auto-created on first save" />
+        </div>
+
+        ${legacyJson ? `<div class="migrate-section">
+          <label>📦 Migrate existing spots (paste your old JSON below)</label>
+          <textarea id="s-migrate" placeholder='[{"id":"…","name":"…",…}]'>${esc(legacyJson)}</textarea>
+          <div style="font-size:12px;color:var(--ink3);margin-top:4px;font-style:italic">
+            We found data in your browser's localStorage — you can migrate it to the Gist above.
+          </div>
+        </div>` : `<div class="migrate-section">
+          <label>📦 Migrate existing spots (paste JSON if you have old data)</label>
+          <textarea id="s-migrate" placeholder='[{"id":"…","name":"…",…}]'></textarea>
+        </div>`}
+
+        <div class="modal-actions">
+          <button class="cancel-btn" onclick="closeSetup()">cancel</button>
+          <button class="add-btn" onclick="saveSetup()">✓ connect</button>
+        </div>
+      </div>
+    </div>`;
+  setTimeout(() => document.getElementById('s-token')?.focus(), 50);
+}
+
+function closeSetup() { document.getElementById('modal-container').innerHTML = ''; }
+
+async function saveSetup() {
+  const token = document.getElementById('s-token').value.trim();
+  const gistId = document.getElementById('s-gist').value.trim();
+  const migrateRaw = document.getElementById('s-migrate')?.value.trim() || '';
+
+  if (!token) { alert('paste your token first!'); return; }
+
+  localStorage.setItem(LS_TOKEN, token);
+  if (gistId) localStorage.setItem(LS_GIST, gistId);
+  else localStorage.removeItem(LS_GIST);
+
+  // Handle migration data
+  let migrateData = null;
+  if (migrateRaw) {
+    try {
+      migrateData = JSON.parse(migrateRaw);
+      if (!Array.isArray(migrateData)) migrateData = null;
+    } catch(e) {
+      alert('migration JSON looks malformed — check it and try again');
+      return;
+    }
+  }
+
+  closeSetup();
+  loaded = false;
+  document.getElementById('add-btn').disabled = true;
+
+  if (migrateData && migrateData.length > 0 && !gistId) {
+    // Create new gist with the migrated data
+    setSyncStatus('saving', 'migrating data…');
+    showSync();
+    await gistCreate(token, migrateData);
+  } else {
+    await gistLoad();
+  }
+}
+
+// ── Boot ─────────────────────────────────────────────────────────────
+const { token } = getCredentials();
+if (token) {
+  gistLoad();
+} else {
+  loaded = true;
+  document.getElementById('add-btn').disabled = false;
+  setSyncStatus('error', 'not connected');
+  document.getElementById('skeleton')?.remove();
+  render();
+  setTimeout(openSetup, 400);
+}
 </script>
 </body>
 </html>
